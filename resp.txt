@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Server: Custom/1.0.0 (Win64)
+Content-Length: 258
+Content-Type: text/html
+Connection: Closed
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Accepted!</title>
+        <meta charset = 'utf-8'>
+    </head>
+    <body>
+        <h> Authentication token recieved, please close this tab </h>
+        <h> HAHAHAHAHAHAHAHAHA </h>
+    </body>
+</html>

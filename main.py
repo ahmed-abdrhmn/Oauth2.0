@@ -1,6 +1,6 @@
 import os
 from socket import *
-from urllib import request, parse
+from urllib import request, parse, error
 import webbrowser
 import json
 
@@ -8,7 +8,7 @@ port = 8333
 client_id = '964584154021-1oamn21a6kqks8v0s6svi9caacsbo3g9.apps.googleusercontent.com'
 client_secret = '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'
 redirect_uri = f'http://127.0.0.1:{port}'
-scope = 'https://www.googleapis.com/auth/youtube'
+scope = 'https://www.googleapis.com/auth/youtube https://www.googleapis.com/auth/youtube.readonly'
 access_token = None
 refresh_token = None
 
@@ -87,7 +87,7 @@ def getRefreshAndAccessTokens():
     output.write(refresh_token)
     output.close()
     
-def GetAccessToken():
+def getAccessToken():
     global client_id, client_secret, refresh_token
     query = {
         'client_id':client_id,
@@ -120,7 +120,7 @@ def Attempt():
     }
 
     headers = {
-        'Authorization' : f'bearer {access_token}'
+        'Authorization' : f'Bearer {access_token}'
     }
 
     req = request.Request(f'https://www.googleapis.com/youtube/v3/videos?{parse.urlencode(query)}', method='GET', headers=headers)
@@ -132,15 +132,30 @@ access_token = tokens.readline()[:-1]
 refresh_token = tokens.readline()
 tokens.close()
 
-a = Attempt()
-if(a.status != 200):
-    GetAccessToken()
-    a = Attempt()
-    if(a.status != 200):
-        GetRefreshAndAccessTokens()
-        a = Attempt()
-        if(a.status != 200):
-            print('Request cannot be satisfied')
-
-print(a.read().decode('ascii'))    
-
+videos = None
+try:
+    videos = Attempt()
+except error.HTTPError as e:
+    try:
+        print(e,end=': ')
+        print('invalid Access Token')
+        getAccessToken()
+    except Exception as e:
+        try:
+            print(e,end=': ')
+            print('invalid Refresh Token')
+            getRefreshAndAccessTokens()
+        except Exception as e:
+            print(e,end=': ')
+            print('something\'s REALLY wrong here')
+    
+    try:
+        videos = Attempt()
+    except Exception as e:
+        print(e,end=': ')
+        print('I give up')
+        os.system('pause')
+        exit()
+            
+print(videos.read().decode('utf-8'))    
+os.system('pause')

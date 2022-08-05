@@ -88,7 +88,7 @@ def getRefreshAndAccessTokens():
     output.close()
     
 def getAccessToken():
-    global client_id, client_secret, refresh_token
+    global client_id, client_secret, refresh_token, access_token
     query = {
         'client_id':client_id,
         'client_secret':client_secret,
@@ -100,18 +100,13 @@ def getAccessToken():
     
     auth = request.urlopen(req)
     
-    if(auth.status == 200):
-        access_token = json.loads(auth.read().decode('ascii'))['access_token']
-        output = open('res.txt','w')
-        output.write(access_token)
-        output.write('\n')
-        output.write(refresh_token)
-        output.close()
-    else:
-        access_token = None
+    access_token = json.loads(auth.read().decode('ascii'))['access_token']
+    output = open('res.txt','w')
+    output.write(access_token)
+    output.write('\n')
+    output.write(refresh_token)
+    output.close()
     
-
-
 def Attempt():
     query = {
         'part':'snippet',

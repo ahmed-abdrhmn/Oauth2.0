@@ -1,17 +1,21 @@
 HTTP/1.1 200 OK
 Server: Custom/1.0.0 (Win64)
-Content-Length: 258
+Content-Length: 520
 Content-Type: text/html
 Connection: Closed
 
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Accepted!</title>
-        <meta charset = 'utf-8'>
-    </head>
-    <body>
-        <h> Authentication token recieved, please close this tab </h>
-        <h> HAHAHAHAHAHAHAHAHA </h>
-    </body>
+<html lang="en">
+<!--  THIS IS THE HEAD PART OF THE DOCUMENT -->
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="ahmed">
+</head>
+<!--  THIS IS THE BODY PART OF THE DOCUMENT -->
+<body>
+    <div style="font-family: Arial,san-serif; text-align:center; position:absolute; width:100%; top:50%; transform: translateY(-50%);">
+        <h1>The operation was approved successfully</h1>
+        <p>Please close this tab and go back to the application</p>
+    </div>
+</body>
 </html>

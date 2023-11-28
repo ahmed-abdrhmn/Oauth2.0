@@ -151,6 +151,11 @@ except error.HTTPError as e:
         print('I give up')
         os.system('pause')
         exit()
-            
-print(videos.read().decode('utf-8'))    
+
+#Printing the list of liked videos            
+resultString = videos.read().decode('utf-8')    
+list = json.loads(resultString)
+for i in list['items']:
+    print(i['snippet']['title'])
+
 os.system('pause')
